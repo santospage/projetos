@@ -1,0 +1,26 @@
+<div class="po-wrapper">
+  <po-toolbar p-title="Lista-Tarefas">
+    <a [routerLink]="['home']" class="navbar-brand"><b>Meat</b></a>
+  </po-toolbar>
+
+   <po-menu [p-menus]="menus"></po-menu>
+
+  <po-page-default p-title="Sistema Lista de Tarefas">
+    <div>
+      <po-avatar
+        p-src="../assets/images/list.jpg" >
+      </po-avatar>
+    </div>
+
+    <div>
+      <router-outlet></router-outlet>
+    </div>
+
+    <po-divider></po-divider>
+
+    <footer>
+      <b>Version</b> 1.0.0
+      <strong>List</strong> Totvs Application
+    </footer>
+  </po-page-default>
+</div>
