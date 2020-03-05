@@ -8,7 +8,6 @@ import { RouterModule } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { AboutComponent } from './about/about.component';
 import { CategorieComponent } from './categorie/categorie.component';
-import { ToolComponent } from './tool/tool.component';
 import { HistoricComponent } from './historic/historic.component';
 import { TaskComponent } from './task/task.component';
 
@@ -18,7 +17,6 @@ import { TaskComponent } from './task/task.component';
     HomeComponent,
     AboutComponent,
     CategorieComponent,
-    ToolComponent,
     HistoricComponent,
     TaskComponent
   ],
