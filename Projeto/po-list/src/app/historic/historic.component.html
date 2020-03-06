@@ -1,1 +1,25 @@
-<p>historic works!</p>
+<section class="content-header">
+  <h2>Histórico</h2>
+</section>
+
+<br>
+
+<form>
+  <div class="po-row">
+    <po-lookup class="po-md-3" name="search"  p-field-label="label" p-field-value="label"
+      p-help="Busca de tarefas" p-label="Busca" p-required
+      [p-literals]="{'modalTitle' : 'Busca tarefas'}">
+    </po-lookup>
+
+    <po-select
+      class="po-md-4" name="categoria" p-help="Selecione uma categoria" p-label="Categoria"
+      p-placeholder="None">
+    </po-select>
+  </div>
+
+  <po-container>
+
+  </po-container>
+</form>
+
+
