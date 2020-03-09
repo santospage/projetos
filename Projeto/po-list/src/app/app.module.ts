@@ -10,6 +10,7 @@ import { AboutComponent } from './about/about.component';
 import { CategorieComponent } from './categorie/categorie.component';
 import { HistoricComponent } from './historic/historic.component';
 import { TaskComponent } from './task/task.component';
+import { ResponsableComponent } from './responsable/responsable.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { TaskComponent } from './task/task.component';
     AboutComponent,
     CategorieComponent,
     HistoricComponent,
-    TaskComponent
+    TaskComponent,
+    ResponsableComponent
   ],
   imports: [
     BrowserModule,

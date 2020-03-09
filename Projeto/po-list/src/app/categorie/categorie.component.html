@@ -5,16 +5,16 @@
 <br>
 
 <form>
-  <div class="po-row">
-    <po-input class="po-md-2" name="codigo" p-clean p-label="Código"></po-input>
-  </div>
+  <po-grid
+    [p-row-actions]="rowActions"
+    [p-data]="data"
+    [p-columns]="columns">
+  </po-grid>
 
-  <div class="po-row">
-    <po-input class="po-md-4" name="descricao" p-clean p-label="Descrição"></po-input>
-  </div>
+  <br>
 
   <div class="po-row">
     <po-button p-label="Confirmar" class="po-md-2"></po-button>
-    <po-button p-label="Listar" class="po-md-2"></po-button>
+    <po-button p-label="Cancelar" class="po-md-2"></po-button>
   </div>
 </form>

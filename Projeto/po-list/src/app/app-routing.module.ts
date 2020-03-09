@@ -6,14 +6,16 @@ import { AboutComponent } from './about/about.component';
 import { CategorieComponent } from './categorie/categorie.component';
 import { HistoricComponent } from './historic/historic.component';
 import { TaskComponent } from './task/task.component';
+import { ResponsableComponent } from './responsable/responsable.component';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
-  { path: 'home', component: HomeComponent },
-  { path: 'categoria', component: CategorieComponent },
-  { path: 'tarefa', component: TaskComponent},
-  { path: 'historico', component: HistoricComponent},
-  { path: 'sobre', component: AboutComponent }
+  {path: '', component: HomeComponent},
+  {path: 'home', component: HomeComponent},
+  {path: 'categorie', component: CategorieComponent},
+  {path: 'responsable', component: ResponsableComponent},
+  {path: 'task', component: TaskComponent},
+  {path: 'historic', component: HistoricComponent},
+  {path: 'about', component: AboutComponent}
 ];
 
 @NgModule({

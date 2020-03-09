@@ -9,13 +9,14 @@ import { PoMenuItem } from '@portinari/portinari-ui';
 })
 export class AppComponent {
 
-  constructor() { }
+  constructor() {}
 
   readonly menus: Array<PoMenuItem> = [
-    { label: 'Home', link: '/home' },
-    { label: 'Categorias', link: '/categoria' },
-    { label: 'Tarefas', link: '/tarefa' },
-    { label: 'Histórico', link: '/historico' },
-    { label: 'Sobre', link: '/sobre' }
+    {label: 'Home', link: '/home'},
+    {label: 'Categorias', link: '/categorie'},
+    {label: 'Responsáveis', link: '/responsable'},
+    {label: 'Tarefas', link: '/task'},
+    {label: 'Histórico', link: '/historic'},
+    {label: 'Sobre', link: '/about'}
   ];
 }
