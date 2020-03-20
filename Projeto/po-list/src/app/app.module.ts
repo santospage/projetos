@@ -11,6 +11,8 @@ import { CategorieComponent } from './categorie/categorie.component';
 import { HistoricComponent } from './historic/historic.component';
 import { TaskComponent } from './task/task.component';
 import { ResponsableComponent } from './responsable/responsable.component';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -26,6 +28,9 @@ import { ResponsableComponent } from './responsable/responsable.component';
     BrowserModule,
     AppRoutingModule,
     PoModule,
+    HttpClientModule,
+    ReactiveFormsModule,
+    FormsModule,
     RouterModule.forRoot([])
   ],
   providers: [],

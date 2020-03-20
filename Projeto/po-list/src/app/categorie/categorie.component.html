@@ -2,19 +2,20 @@
   <h2>Categorias</h2>
 </section>
 
-<br>
+<po-container>
+  <form [formGroup]="categorieForm">
+    <div class="po-row">
+      <po-input class="po-md-2" formControlName="id" p-clean p-label="Código"></po-input>
+      <po-input class="po-md-4" formControlName="description" p-clean p-label="Descrição"></po-input>
+    </div>
 
-<form>
-  <po-grid
-    [p-row-actions]="rowActions"
-    [p-data]="data"
-    [p-columns]="columns">
-  </po-grid>
+    <div class="po-row">
+      <po-button class="po-md-3" p-label="Salvar" (p-click)="saveCategorie()"></po-button>
+      <po-button class="po-md-3" p-label="Excluir" (p-click)="deleteCategorie()"></po-button>
+    </div>
 
-  <br>
+    <hr>
 
-  <div class="po-row">
-    <po-button p-label="Confirmar" class="po-md-2"></po-button>
-    <po-button p-label="Cancelar" class="po-md-2"></po-button>
-  </div>
-</form>
+    <po-grid [p-row-actions]="rowActions" [p-data]="categories" [p-columns]="columns"></po-grid>
+  </form>
+</po-container>
