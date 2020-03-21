@@ -1,7 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-
-import { PoModalAction, PoModalComponent } from '@portinari/portinari-ui';
 
 import { CategorieService } from './../services/categorie.service';
 import { Categorie } from './../models/categorie';
@@ -14,13 +12,6 @@ import { Categorie } from './../models/categorie';
 export class CategorieComponent implements OnInit {
   categorieForm: FormGroup;
   categories: Categorie[];
-
-  public readonly modalPrimaryAction: PoModalAction = {
-    action: () => this.categorieFormModal.close(),
-    label: 'Close'
-  };
-
-  @ViewChild('categorieFormData', { static: true }) categorieFormModal: PoModalComponent;
 
   columns = [
     {property: 'id', label: 'Código', align: 'left', readonly: true, width: 2, required: true },
@@ -37,7 +28,7 @@ export class CategorieComponent implements OnInit {
 
   constructor(private categorieService: CategorieService,
               private fb: FormBuilder) {
-    this.createCategorieForm();
+              this.createCategorieForm();
   }
 
   createCategorieForm() {
@@ -52,30 +43,33 @@ export class CategorieComponent implements OnInit {
   }
 
   saveCategorie() {
-    this.getCategorie();
+    if (this.categorieForm.value.id &&
+        this.categorieForm.value.description) {
 
-    let altera = false;
+      this.getCategorie();
 
-    // tslint:disable-next-line: prefer-for-of
-    for (let i = 0; i < this.categories.length; i++) {
-      if (this.categories[i].id === this.categorieForm.value.id) {
-        altera = true;
+      let altera = false;
+
+      // tslint:disable-next-line: prefer-for-of
+      for (let i = 0; i < this.categories.length; i++) {
+        if (this.categories[i].id === this.categorieForm.value.id) {
+          altera = true;
+        }
       }
-    }
 
-    if (altera) {
-      this.categorieService.updateCategorie(this.categorieForm.value).subscribe(() => {
-        console.log(this.categorieForm.value.description);
-      });
+      // Inclui/altera categoria
+      if (altera) {
+        this.categorieService.updateCategorie(this.categorieForm.value).subscribe(() => {
+          console.log(this.categorieForm.value.description);
+        });
+      } else {
+          this.categorieService.saveCategorie(this.categorieForm.value).subscribe(() => {
+          console.log(this.categorieForm.value.description);
+        });
+      }
     } else {
-      this.categorieService.saveCategorie(this.categorieForm.value).subscribe(() => {
-        console.log(this.categorieForm.value.description);
-      });
+        alert('Código e descrição são obrigatórios!');
     }
-  }
-
-  ngOnInit() {
-    this.getAllCategories();
   }
 
   // Chama o serviço para obtém todos as categorias
@@ -87,13 +81,21 @@ export class CategorieComponent implements OnInit {
 
   // Chama o serviço para obter categoria pelo id
   getCategorie() {
-    this.categorieService.getCategorieById(this.categorieForm.value.id).subscribe((categories: Categorie[]) =>
-      this.categories = categories);
+    this.categorieService.getCategorieById(this.categorieForm.value.id).
+      subscribe((categories: Categorie[]) => this.categories = categories);
   }
 
   // deleta uma categoria
   deleteCategorie() {
-    this.categorieService.deleteCategorie(this.categorieForm.value.id).subscribe(() => {
-    });
+    if (this.categorieForm.value.id) {
+      this.categorieService.deleteCategorie(this.categorieForm.value.id).subscribe(() => {
+      });
+    } else {
+        alert('Código é obrigatório!');
+    }
+  }
+
+  ngOnInit() {
+    this.getAllCategories();
   }
 }

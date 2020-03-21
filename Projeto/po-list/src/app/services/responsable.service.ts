@@ -3,14 +3,14 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
 
-import { Categorie } from '../models/categorie';
+import { Responsable } from '../models/responsable';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CategorieService {
 
-  url = 'http://localhost:3000/categories'; // api rest fake
+export class ResponsableService {
+  url = 'http://localhost:3000/responsables'; // api rest fake
 
   constructor(private httpClient: HttpClient) {}
 
@@ -19,44 +19,44 @@ export class CategorieService {
     headers: new HttpHeaders({'Content-Type': 'application/json'})
   };
 
-  // Obtem categorias
-  getCategories(): Observable<Categorie[]> {
-    return this.httpClient.get<Categorie[]>(this.url)
+  // Obtem responsáveis
+  getResponsables(): Observable<Responsable[]> {
+    return this.httpClient.get<Responsable[]>(this.url)
       .pipe(
         retry(2),
         catchError(this.handleError));
   }
 
-  // Obtem uma categoria pelo id
-  getCategorieById(id: string): Observable<Categorie[]> {
-    return this.httpClient.get<Categorie[]>(`${this.url}/${id}`)
+  // Obtem um responsável pelo id
+  getResponsableById(id: string): Observable<Responsable[]> {
+    return this.httpClient.get<Responsable[]>(`${this.url}/${id}`)
       .pipe(
         retry(2),
         catchError(this.handleError)
       );
   }
 
-  // salva uma categoria
-  saveCategorie(categorie: Categorie): Observable<Categorie> {
-    return this.httpClient.post<Categorie>(this.url, JSON.stringify(categorie), this.httpOptions)
+  // salva um responsável
+  saveResponsable(responsable: Responsable): Observable<Responsable> {
+    return this.httpClient.post<Responsable>(this.url, JSON.stringify(responsable), this.httpOptions)
       .pipe(
         retry(2),
         catchError(this.handleError)
       );
   }
 
-  // atualiza uma categoria
-  updateCategorie(categorie: Categorie): Observable<Categorie> {
-    return this.httpClient.put<Categorie>(`${this.url}/${categorie.id}`, JSON.stringify(categorie), this.httpOptions)
+  // atualiza um responsável
+  updateResponsable(responsable: Responsable): Observable<Responsable> {
+    return this.httpClient.put<Responsable>(`${this.url}/${responsable.id}`, JSON.stringify(responsable), this.httpOptions)
       .pipe(
         retry(1),
         catchError(this.handleError)
       );
   }
 
-  // deleta uma categoria
-  deleteCategorie(id: string) {
-    return this.httpClient.delete<Categorie[]>(`${this.url}/${id}`, this.httpOptions)
+  // deleta um responsável
+  deleteResponsable(id: string) {
+    return this.httpClient.delete<Responsable[]>(`${this.url}/${id}`, this.httpOptions)
       .pipe(
         retry(1),
         catchError(this.handleError)

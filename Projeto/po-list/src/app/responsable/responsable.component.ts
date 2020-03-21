@@ -1,53 +1,100 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+
+import { ResponsableService } from './../services/responsable.service';
+import { Responsable } from './../models/responsable';
 
 @Component({
   selector: 'app-responsable',
   templateUrl: './responsable.component.html',
 })
 export class ResponsableComponent implements OnInit {
+  responsableForm: FormGroup;
+  responsables: Responsable[];
+
+  columns = [
+    {property: 'id', label: 'Código', align: 'left', readonly: true, width: 2, required: true },
+    {property: 'name', label: 'Nome', align: 'left', readonly: true, width: 10, required: true },
+  ];
+
   rowActions = {
-    beforeSave: this.onBeforeSave.bind(this),
-    afterSave: this.onAfterSave.bind(this),
-    beforeRemove: this.onBeforeRemove.bind(this),
-    afterRemove: this.onAfterRemove.bind(this),
     beforeInsert: this.onBeforeInsert.bind(this)
   };
 
-  columns = [
-    {property: 'id', label: 'Código', align: 'left', readonly: true, width: 1, required: true},
-    {property: 'name', label: 'Nome', align: 'left', width: 10, required: true},
-    {property: 'actions', label: 'Ações', align: 'left', readonly: true, action: true, width: 5},
-  ];
-
-  data = [
-    {id: '000001', name: 'Responsável 01', status: 'Active', actions: 'Excluir'},
-    {id: '000002', name: 'Responsável 02', status: 'Active', actions: 'Excluir'},
-    {id: '000003', name: 'Responsável 03', status: 'Active', actions: 'Excluir'}
-  ];
-
-  constructor() {}
-
-  ngOnInit() {}
-
-  onBeforeSave(row: any, old: any) {
-    return row.occupation !== 'Engineer';
-  }
-
-  onAfterSave(row) {
-    // console.log('onAfterSave(new): ', row);
-  }
-
-  onBeforeRemove(row) {
-    // console.log('onBeforeRemove: ', row);
-    return true;
-  }
-
-  onAfterRemove(row) {
-    // console.log('onAfterRemove: ', row);
-  }
-
   onBeforeInsert(row) {
-    // console.log('onBeforeInsert: ', row);
-    return true;
+    return false;
+  }
+
+  constructor(private responsableService: ResponsableService,
+              private fb: FormBuilder) {
+              this.createResponsableForm();
+  }
+
+  createResponsableForm() {
+    this.responsableForm = this.fb.group({
+      id: ['', Validators.compose([
+        Validators.required, Validators.minLength(6), Validators.maxLength(6)
+      ])],
+      name: ['', Validators.compose([
+        Validators.minLength(5), Validators.maxLength(30)
+      ])]
+    });
+  }
+
+  saveResponsable() {
+    if (this.responsableForm.value.id &&
+        this.responsableForm.value.name) {
+
+      this.getResponsable();
+
+      let altera = false;
+
+      // tslint:disable-next-line: prefer-for-of
+      for (let i = 0; i < this.responsables.length; i++) {
+        if (this.responsables[i].id === this.responsableForm.value.id) {
+          altera = true;
+        }
+      }
+
+      // Inclui/altera responsável
+      if (altera) {
+        this.responsableService.updateResponsable(this.responsableForm.value).subscribe(() => {
+          console.log(this.responsableForm.value.name);
+        });
+      } else {
+          this.responsableService.saveResponsable(this.responsableForm.value).subscribe(() => {
+          console.log(this.responsableForm.value.name);
+        });
+      }
+    } else {
+        alert('Código e nome são obrigatórios!');
+    }
+  }
+
+  // Chama o serviço para obtém todos os responsáveis
+  getAllResponsables() {
+    this.responsableService.getResponsables().subscribe((responsables: Responsable[]) => {
+      this.responsables = responsables;
+    });
+  }
+
+  // Chama o serviço para obter resonsável pelo id
+  getResponsable() {
+    this.responsableService.getResponsableById(this.responsableForm.value.id).
+      subscribe((responsables: Responsable[]) => this.responsables = responsables);
+  }
+
+  // deleta um responsável
+  deleteResponsable() {
+    if (this.responsableForm.value.id) {
+      this.responsableService.deleteResponsable(this.responsableForm.value.id).subscribe(() => {
+      });
+    } else {
+        alert('Código é obrigatório!');
+    }
+  }
+
+  ngOnInit() {
+    this.getAllResponsables();
   }
 }
