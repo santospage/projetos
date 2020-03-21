@@ -3,6 +3,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
 
+
 import { Categorie } from '../models/categorie';
 
 @Injectable({
@@ -29,7 +30,7 @@ export class CategorieService {
 
   // Obtem uma categoria pelo id
   getCategorieById(id: string): Observable<Categorie[]> {
-    return this.httpClient.get<Categorie[]>(this.url + '/' + id)
+    return this.httpClient.get<Categorie[]>(`${this.url}/${id}`)
       .pipe(
         retry(2),
         catchError(this.handleError)
@@ -47,7 +48,7 @@ export class CategorieService {
 
   // atualiza uma categoria
   updateCategorie(categorie: Categorie): Observable<Categorie> {
-    return this.httpClient.put<Categorie>(`${this.url}'/'${categorie.id}`, JSON.stringify(categorie), this.httpOptions)
+    return this.httpClient.put<Categorie>(`${this.url}/${categorie.id}`, JSON.stringify(categorie), this.httpOptions)
       .pipe(
         retry(1),
         catchError(this.handleError)
@@ -55,8 +56,8 @@ export class CategorieService {
   }
 
   // deleta uma categoria
-  deleteCategorie(categorie: Categorie) {
-    return this.httpClient.delete<Categorie>(`${this.url}'/'${categorie.id}`, this.httpOptions)
+  deleteCategorie(id: string) {
+    return this.httpClient.delete<Categorie[]>(`${this.url}/${id}`, this.httpOptions)
       .pipe(
         retry(1),
         catchError(this.handleError)

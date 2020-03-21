@@ -13,7 +13,6 @@ import { Categorie } from './../models/categorie';
 
 export class CategorieComponent implements OnInit {
   categorieForm: FormGroup;
-  categorie: any;
   categories: Categorie[];
 
   public readonly modalPrimaryAction: PoModalAction = {
@@ -53,7 +52,18 @@ export class CategorieComponent implements OnInit {
   }
 
   saveCategorie() {
-    if (this.categorieForm.value.id === this.categorie.id) {
+    this.getCategorie();
+
+    let altera = false;
+
+    // tslint:disable-next-line: prefer-for-of
+    for (let i = 0; i < this.categories.length; i++) {
+      if (this.categories[i].id === this.categorieForm.value.id) {
+        altera = true;
+      }
+    }
+
+    if (altera) {
       this.categorieService.updateCategorie(this.categorieForm.value).subscribe(() => {
         console.log(this.categorieForm.value.description);
       });
@@ -77,9 +87,8 @@ export class CategorieComponent implements OnInit {
 
   // Chama o serviço para obter categoria pelo id
   getCategorie() {
-    this.categorieService.getCategorieById(this.categorieForm.value.id).subscribe((categories: Categorie[]) => {
-      this.categorie = categories;
-    });
+    this.categorieService.getCategorieById(this.categorieForm.value.id).subscribe((categories: Categorie[]) =>
+      this.categories = categories);
   }
 
   // deleta uma categoria
