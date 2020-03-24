@@ -2,23 +2,19 @@
   <h2>Tarefas</h2>
 </section>
 
-<hr>
+<po-lookup class="po-md-3" name="search"  p-field-label="label" p-field-value="value"
+  p-filter-service='filterSettings' [p-literals]="{'modalTitle' : 'Busca tarefas'}" >
+</po-lookup>
 
-<form>
-  <div class="po-row">
-    <po-lookup class="po-md-3" name="search"  p-field-label="label" p-field-value="label"
-      p-help="Busca de tarefas" p-label="Busca" p-required
-      [p-literals]="{'modalTitle' : 'Busca tarefas'}">
-    </po-lookup>
-
-    <po-select
-      class="po-md-4" name="categoria" p-help="Selecione uma categoria" p-label="Categoria"
-      p-placeholder="None">
-    </po-select>
-  </div>
-
-  <po-container>
-
-  </po-container>
-</form>
-
+<po-table
+  p-checkbox
+  p-container
+  p-height="380"
+  p-hide-select-all="true"
+  p-hide-text-overflow
+  p-sort="true"
+  p-striped="true"
+  [p-actions]="actions"
+  [p-columns]="columns"
+  [p-items]="items">
+</po-table>

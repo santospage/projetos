@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
+import { PoNotificationService } from '@portinari/portinari-ui';
+
 import { CategorieService } from './../services/categorie.service';
 import { Categorie } from './../models/categorie';
 
@@ -27,7 +29,8 @@ export class CategorieComponent implements OnInit {
   }
 
   constructor(private categorieService: CategorieService,
-              private fb: FormBuilder) {
+              private fb: FormBuilder,
+              private poNotification: PoNotificationService) {
               this.createCategorieForm();
   }
 
@@ -54,6 +57,7 @@ export class CategorieComponent implements OnInit {
       for (let i = 0; i < this.categories.length; i++) {
         if (this.categories[i].id === this.categorieForm.value.id) {
           altera = true;
+          break;
         }
       }
 
@@ -68,7 +72,7 @@ export class CategorieComponent implements OnInit {
         });
       }
     } else {
-        alert('Código e descrição são obrigatórios!');
+        this.poNotification.error('Código e descrição são obrigatórios!');
     }
   }
 
@@ -91,7 +95,7 @@ export class CategorieComponent implements OnInit {
       this.categorieService.deleteCategorie(this.categorieForm.value.id).subscribe(() => {
       });
     } else {
-        alert('Código é obrigatório!');
+        this.poNotification.error('Código é obrigatório');
     }
   }
 

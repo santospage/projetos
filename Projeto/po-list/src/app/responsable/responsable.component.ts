@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
+import { PoNotificationService } from '@portinari/portinari-ui';
+
 import { ResponsableService } from './../services/responsable.service';
 import { Responsable } from './../models/responsable';
 
@@ -26,7 +28,8 @@ export class ResponsableComponent implements OnInit {
   }
 
   constructor(private responsableService: ResponsableService,
-              private fb: FormBuilder) {
+              private fb: FormBuilder,
+              private poNotification: PoNotificationService) {
               this.createResponsableForm();
   }
 
@@ -53,6 +56,7 @@ export class ResponsableComponent implements OnInit {
       for (let i = 0; i < this.responsables.length; i++) {
         if (this.responsables[i].id === this.responsableForm.value.id) {
           altera = true;
+          break;
         }
       }
 
@@ -67,7 +71,7 @@ export class ResponsableComponent implements OnInit {
         });
       }
     } else {
-        alert('Código e nome são obrigatórios!');
+        this.poNotification.error('Código e nome são obrigatórios!');
     }
   }
 
@@ -90,7 +94,7 @@ export class ResponsableComponent implements OnInit {
       this.responsableService.deleteResponsable(this.responsableForm.value.id).subscribe(() => {
       });
     } else {
-        alert('Código é obrigatório!');
+        this.poNotification.error('Código é obrigatório');
     }
   }
 
