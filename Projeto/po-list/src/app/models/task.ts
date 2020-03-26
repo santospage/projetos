@@ -7,4 +7,5 @@ export interface Task {
   deadline: Date;
   closedate: Date;
   status: string;
+  detail: string;
 }

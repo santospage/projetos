@@ -30,5 +30,51 @@
       "id": "000004",
       "name": "Responsável 04"
     }
+  ],
+  "tasks": [
+    {
+      "id": "000001",
+      "description": "Tarefa 01",
+      "generationdate": "2020-03-20",
+      "category": "Análise",
+      "responsable": "Responsável 01",
+      "deadline": "2020-03-27",
+      "closedate": "",
+      "status": "",
+      "detail": "Criação de um relatório para apresentação do Balanço Orçamentário de despesas e receitas."
+    },
+    {
+      "id": "000002",
+      "description": "Tarefa 02",
+      "generationdate": "2020-03-20",
+      "category": "Análise",
+      "responsable": "Responsável 01",
+      "deadline": "2020-04-10",
+      "closedate": "",
+      "status": "",
+      "detail": "Criação de um cadastro para contas contábeis crédito e débito."
+    },
+    {
+      "id": "000003",
+      "description": "Tarefa 03",
+      "generationdate": "2020-03-22",
+      "category": "Desenvolvimento",
+      "responsable": "Responsável 02",
+      "deadline": "2020-03-25",
+      "closedate": "",
+      "status": "",
+      "detail": "Correção do relatório Balanço patrimonial."
+    },
+    {
+      "id": "000004",
+      "description": "Tarefa 04",
+      "generationdate": "2020-03-20",
+      "category": "Desenvolvimento",
+      "responsable": "Responsável 02",
+      "deadline": "2020-03-24",
+      "closedate": "2020-03-24",
+      "status": "",
+      "detail": "Correção de errorlog no cadastro de ativos."
+    }
   ]
 }

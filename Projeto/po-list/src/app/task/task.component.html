@@ -2,9 +2,14 @@
   <h2>Tarefas</h2>
 </section>
 
-<po-lookup class="po-md-3" name="search"  p-field-label="label" p-field-value="value"
-  p-filter-service='filterSettings' [p-literals]="{'modalTitle' : 'Busca tarefas'}" >
-</po-lookup>
+<div class="po-row">
+    <form [formGroup]="">
+      <div class="form-group">
+          <input type="text" #iptSearch formControlName=""
+            class="form-control" placeholder="Buscar">
+      </div>
+    </form>
+</div>
 
 <po-table
   p-checkbox
@@ -16,5 +21,5 @@
   p-striped="true"
   [p-actions]="actions"
   [p-columns]="columns"
-  [p-items]="items">
+  [p-items]="tasks">
 </po-table>
