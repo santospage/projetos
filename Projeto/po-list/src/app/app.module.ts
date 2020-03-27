@@ -13,6 +13,8 @@ import { TaskComponent } from './task/task.component';
 import { ResponsableComponent } from './responsable/responsable.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TaskDetailComponent } from './task/task-detail/task-detail.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     CategorieComponent,
     HistoricComponent,
     TaskComponent,
-    ResponsableComponent
+    ResponsableComponent,
+    TaskDetailComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
