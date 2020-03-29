@@ -61,7 +61,14 @@ export class TaskDetailComponent implements OnInit {
         .getDate() + 1)}-${this.taskService.AjustData(new Date(this.detail.deadline)
           .getMonth() + 1)}-${new Date(this.detail.deadline)
             .getFullYear()}`;
-      this.closedate =  this.detail.closedate;
+
+      if (this.detail.closedate) {
+              this.closedate =  `${this.taskService.AjustData(new Date(this.detail.closedate)
+                .getDate() + 1)}-${this.taskService.AjustData(new Date(this.detail.closedate)
+                .getMonth() + 1)}-${new Date(this.detail.closedate)
+                .getFullYear()}`;
+            }
+
       this.textarea = this.detail.detail;
     });
   }
@@ -71,11 +78,19 @@ export class TaskDetailComponent implements OnInit {
   }
 
   confirmTask() {
-    this.router.navigate(['/task']);
+    if (this.closedate) {
+      this.router.navigate(['/historic']);
+    } else {
+      this.router.navigate(['/task']);
+    }
   }
 
   cancelTask() {
-    this.router.navigate(['/task']);
+    if (this.closedate) {
+      this.router.navigate(['/historic']);
+    } else {
+      this.router.navigate(['/task']);
+    }
   }
 
   ngOnInit() {

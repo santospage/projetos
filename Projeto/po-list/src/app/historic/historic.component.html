@@ -2,24 +2,34 @@
   <h2>Histórico</h2>
 </section>
 
-<hr>
+<po-container>
+  <form>
+    <div class="po-row">
+      <input type="text" #iptSearch placeholder="Buscar">
+    </div>
+  </form>
 
-<form>
-  <div class="po-row">
-    <po-lookup class="po-md-3" name="search"  p-field-label="label" p-field-value="label"
-      p-help="Busca de tarefas" p-label="Busca" p-required
-      [p-literals]="{'modalTitle' : 'Busca tarefas'}">
-    </po-lookup>
+  <hr>
 
-    <po-select
-      class="po-md-4" name="categoria" p-help="Selecione uma categoria" p-label="Categoria"
-      p-placeholder="None">
-    </po-select>
+  <div>
+    <po-table
+      p-checkbox
+      p-container
+      p-height="380"
+      p-hide-select-all="true"
+      p-hide-text-overflow
+      p-sort="true"
+      p-striped="true"
+      [p-actions]="actions"
+      [p-columns]="columns"
+      [p-items]="historics">
+    </po-table>
   </div>
 
-  <po-container>
+  <hr>
 
-  </po-container>
-</form>
+  <div>
+    <po-button class="po-md-3" p-label="Visualizar" (p-click)="view(historics)"></po-button>
+  </div>
 
-
+</po-container>

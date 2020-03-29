@@ -1,5 +1,6 @@
 <section class="content-header">
-  <h2>Tarefas</h2>
+  <h2 *ngIf="closedate">Histórico</h2>
+  <h2 *ngIf="!closedate">Tarefas</h2>
 </section>
 
 <po-container>

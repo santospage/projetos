@@ -36,8 +36,7 @@ export class TaskComponent implements OnInit {
               private poNotification: PoNotificationService,
               private poDialog: PoDialogService,
               private taskDetailComponent: TaskDetailComponent,
-              private router: Router,
-              ) {
+              private router: Router) {
                 this.createTaskForm();
   }
 
