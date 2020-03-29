@@ -1,5 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Injectable } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import {
   PoDialogService,
@@ -11,6 +12,11 @@ import {
 
 import { TaskService } from './../services/task.service';
 import { Task } from './../models/task';
+import { TaskDetailComponent } from './task-detail/task-detail.component';
+
+@Injectable({
+  providedIn: 'root'
+})
 
 @Component({
   selector: 'app-task',
@@ -21,13 +27,7 @@ export class TaskComponent implements OnInit {
   taskForm: FormGroup;
   tasks: Task[];
   columns: Array<PoTableColumn> = this.taskService.getColumns();
-  detail: any;
-  actions: Array<PoTableAction> = [
-    { action: this.details.bind(this), icon: 'po-icon-ok', label: 'Incluir' },
-    { action: this.details.bind(this), icon: 'po-icon-change', label: 'Alterar' },
-    { action: this.details.bind(this), icon: 'po-icon-info', label: 'Visualizar' },
-    { action: this.details.bind(this), icon: 'po-icon-delete', label: 'Excluir' }
-  ];
+  actions: Array<PoTableAction> = [];
 
   @ViewChild(PoTableComponent, { static: true }) poTable: PoTableComponent;
 
@@ -35,6 +35,8 @@ export class TaskComponent implements OnInit {
               private fb: FormBuilder,
               private poNotification: PoNotificationService,
               private poDialog: PoDialogService,
+              private taskDetailComponent: TaskDetailComponent,
+              private router: Router,
               ) {
                 this.createTaskForm();
   }
@@ -77,12 +79,29 @@ export class TaskComponent implements OnInit {
     });
   }
 
-  details(item) {
-    this.detail = item;
-  }
-
   hasTask(tasks) {
     return this.taskService.getStatusTask(tasks);
+  }
+
+  // Visualizar
+  view(item) {
+    let taskstmp: Array<any> = [];
+    taskstmp = this.taskService.getSelectTask(item);
+    this.taskDetailComponent.viewItem(taskstmp);
+  }
+
+  // Visualizar
+  alter(item) {
+    let taskstmp: Array<any> = [];
+    taskstmp = this.taskService.getSelectTask(item);
+    this.taskDetailComponent.viewItem(taskstmp);
+  }
+
+  // Visualizar
+  add(item) {
+    let taskstmp: Array<any> = [];
+    taskstmp = this.taskService.getSelectTask(item);
+    this.taskDetailComponent.viewItem(taskstmp);
   }
 
    ngOnInit() {

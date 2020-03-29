@@ -2,24 +2,37 @@
   <h2>Tarefas</h2>
 </section>
 
-<div class="po-row">
-    <form [formGroup]="">
-      <div class="form-group">
-          <input type="text" #iptSearch formControlName=""
-            class="form-control" placeholder="Buscar">
-      </div>
-    </form>
-</div>
+<po-container>
+  <form>
+    <div class="po-row">
+      <input type="text" #iptSearch placeholder="Buscar">
+    </div>
+  </form>
 
-<po-table
-  p-checkbox
-  p-container
-  p-height="380"
-  p-hide-select-all="true"
-  p-hide-text-overflow
-  p-sort="true"
-  p-striped="true"
-  [p-actions]="actions"
-  [p-columns]="columns"
-  [p-items]="tasks">
-</po-table>
+  <hr>
+
+  <div>
+    <po-table
+      p-checkbox
+      p-container
+      p-height="380"
+      p-hide-select-all="true"
+      p-hide-text-overflow
+      p-sort="true"
+      p-striped="true"
+      [p-actions]="actions"
+      [p-columns]="columns"
+      [p-items]="tasks">
+    </po-table>
+  </div>
+
+  <hr>
+
+  <div>
+    <po-button class="po-md-3" p-label="Incluir" (p-click)="view(tasks)"></po-button>
+    <po-button class="po-md-3" p-label="Alterar" (p-click)="alter(tasks)"></po-button>
+    <po-button class="po-md-3" p-label="Visualizar" (p-click)="add(tasks)"></po-button>
+  </div>
+
+</po-container>
+

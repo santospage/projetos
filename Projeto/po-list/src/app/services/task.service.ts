@@ -1,4 +1,4 @@
-import { Injectable, ErrorHandler } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
@@ -42,11 +42,20 @@ export class TaskService {
         catchError(this.handleError));
   }
 
-  teste(search?: string): Observable<Task[]> {
+  getSearch(search?: string): Observable<Task[]> {
     return this.httpClient.get<Task[]>(this.url, {params: {q: search}})
       .pipe(
         retry(2),
         catchError(this.handleError));
+  }
+
+  // Obtem uma tarefa pelo id
+  getTaskById(id: string): Observable<Task[]> {
+    return this.httpClient.get<Task[]>(`${this.url}/${id}`)
+      .pipe(
+        retry(2),
+        catchError(this.handleError)
+      );
   }
 
   // Manipulação de erros
@@ -65,9 +74,10 @@ export class TaskService {
 
   // Obtem status da tarefa
   getStatusTask(tasks) {
-    let taskstmp: Array<any> = [];
-    let dataAtual = `${new Date().getFullYear()}-${this.AjustData(new Date().getMonth() + 1)}-${this.AjustData(new Date().getDate())}`;
+    const taskstmp: Array<any> = [];
+    const dataAtual = `${new Date().getFullYear()}-${this.AjustData(new Date().getMonth() + 1)}-${this.AjustData(new Date().getDate())}`;
 
+    // tslint:disable-next-line:prefer-for-of
     for (let i = 0; i < tasks.length; i++) {
       if (!tasks[i].closedate) {
         taskstmp.push(tasks[i]);
@@ -79,6 +89,20 @@ export class TaskService {
         } else {
           taskstmp[taskstmp.length - 1].status = 'green';
         }
+      }
+    }
+    return taskstmp;
+  }
+
+  // Obtem item selecionado
+  getSelectTask(item) {
+    const taskstmp: Array<any> = [];
+
+    // tslint:disable-next-line:prefer-for-of
+    for (let i = 0; i < item.length; i++) {
+      if (item[i].$selected) {
+        taskstmp.push(item[i]);
+        break;
       }
     }
     return taskstmp;

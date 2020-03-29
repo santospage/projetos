@@ -3,18 +3,17 @@
 </section>
 
 <po-container>
-  <form [formGroup]="">
     <div class="po-row">
-      <po-input class="po-md-1" formControlName="id" p-clean p-label="Código"></po-input>
-      <po-input class="po-md-4" formControlName="description" p-clean p-label="Descrição"></po-input>
-      <po-input class="po-md-4" formControlName="responsable" p-clean p-label="Responsável"></po-input>
-      <po-input class="po-md-4" formControlName="category" p-clean p-label="Categoria"></po-input>
-      <po-input class="po-md-2" formControlName="generationdate" p-clean p-label="Geração"></po-input>
-      <po-input class="po-md-2" formControlName="deadline" p-clean p-label="Prazo"></po-input>
-      <po-input class="po-md-2" formControlName="closedate" p-clean p-label="Encerramento"></po-input>
+      <po-input [(ngModel)]="IdTask" class="po-md-2" p-clean p-label="Código"></po-input>
+      <po-input [(ngModel)]="description" class="po-md-4" p-clean p-label="Descrição"></po-input>
+      <po-input [(ngModel)]="responsable" class="po-md-4" p-clean p-label="Responsável"></po-input>
+      <po-input [(ngModel)]="categorie" class="po-md-4" p-clean p-label="Categoria"></po-input>
+      <po-input [(ngModel)]="generationdate" class="po-md-2" p-clean p-label="Geração"></po-input>
+      <po-input [(ngModel)]="deadline" class="po-md-2" p-clean p-label="Prazo"></po-input>
+      <po-input [(ngModel)]="closedate" class="po-md-2" p-clean p-label="Encerramento"></po-input>
     </div>
 
-    <po-textarea name="detail" p-label="Detalhes"></po-textarea>
+    <po-textarea [(ngModel)]="textarea" name="detail" p-label="Detalhes"></po-textarea>
 
     <hr>
 
@@ -22,5 +21,4 @@
       <po-button class="po-md-3" p-label="Confirmar" (p-click)="confirmTask()"></po-button>
       <po-button class="po-md-3" p-label="Cancelar" (p-click)="cancelTask()"></po-button>
     </div>
-  </form>
 </po-container>

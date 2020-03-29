@@ -11,7 +11,6 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { TaskDetailComponent } from './task/task-detail/task-detail.component';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
   { path: 'home', component: HomeComponent },
   { path: 'categorie', component: CategorieComponent },
   { path: 'responsable', component: ResponsableComponent },
@@ -19,6 +18,7 @@ const routes: Routes = [
   { path: 'task/:id', component: TaskDetailComponent },
   { path: 'historic', component: HistoricComponent },
   { path: 'about', component: AboutComponent },
+  { path: '', redirectTo: '/home', pathMatch: 'full' },
   { path: '**', component: NotFoundComponent }
 ];
 
