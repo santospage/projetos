@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
 
+import { PoNotificationService } from '@portinari/portinari-ui';
+
 import { TaskService } from 'src/app/services/task.service';
 
 @Injectable({
@@ -7,16 +9,16 @@ import { TaskService } from 'src/app/services/task.service';
 })
 
 export class TaskDetailService {
-  poNotification: any;
+  tasks: any;
 
-  constructor(private taskService: TaskService) {
+  constructor(private taskService: TaskService,
+              private poNotification: PoNotificationService) {
   }
 
-  saveTask(task) {
-    if (task.id && task.description && task.generationdate) {
+  saveTask(task, altera) {
+    if (task.id && task.description &&
+        task.generationdate && task.deadline) {
       // Inclui/altera categoria
-      let altera = false;
-
       if (altera) {
         this.taskService.updateTask(task).subscribe(() => {
           console.log(task.description);
@@ -27,7 +29,13 @@ export class TaskDetailService {
         });
       }
     } else {
-      alert('Código, descrição e data de geração são obrigatórios!');
+      this.poNotification.error('Código, descrição, geração e vencimento são obrigatórios!');
     }
+  }
+
+  excluiTask(task) {
+    this.taskService.deleteTask(task.id).subscribe(() => {
+    this.poNotification.information(`Tarefa ${task.id} excluída com sucesso!`);
+    });
   }
 }

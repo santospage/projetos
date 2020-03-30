@@ -30,6 +30,7 @@ export class TaskDetailComponent implements OnInit {
   inputDisabled: boolean;
   formulariosForm: FormGroup;
   tasks: any;
+  altera = false;
 
   constructor(private taskService: TaskService,
               private taskDetailService: TaskDetailService,
@@ -53,12 +54,18 @@ export class TaskDetailComponent implements OnInit {
 
   // Alterar
   alterItem(item) {
-    this.detail = item;
+    this.taskService.getTaskById(item[0].id).subscribe((tasks: Task[]) => {
+      this.detail = tasks;
+      this.router.navigate([`/task/${this.detail.id}`]);
+    });
   }
 
   // Excluir
   deleteItem(item) {
-    this.detail = item;
+    this.taskService.getTaskById(item[0].id).subscribe((tasks: Task[]) => {
+      this.detail = tasks;
+      this.taskDetailService.excluiTask(this.detail);
+    });
   }
 
   // Visualizar
@@ -86,12 +93,9 @@ export class TaskDetailComponent implements OnInit {
       }
 
       this.textarea = this.detail.detail;
+      this.altera = true;
       });
     }
-  }
-
-  delete(item) {
-    this.detail = item;
   }
 
   confirmTask() {
@@ -108,7 +112,8 @@ export class TaskDetailComponent implements OnInit {
         this.taskComponent.taskForm.value.status = this.status;
         this.taskComponent.taskForm.value.detail = this.textarea;
 
-        this.taskDetailService.saveTask(this.taskComponent.taskForm.value);
+        this.taskDetailService.saveTask(this.taskComponent.taskForm.value,
+                                        this.altera);
         this.router.navigate(['/task']);
     }
   }

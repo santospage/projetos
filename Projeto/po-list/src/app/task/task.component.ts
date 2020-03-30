@@ -84,8 +84,6 @@ export class TaskComponent implements OnInit {
 
   // Adicionar
   add() {
-     // let taskstmp: Task[];
-    // taskstmp = this.taskService.getSelectTask(item);
      this.taskDetailComponent.addItem();
   }
 

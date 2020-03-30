@@ -81,6 +81,15 @@ export class TaskService {
       );
   }
 
+  // deleta uma tarefa
+  deleteTask(id: string) {
+    return this.httpClient.delete<Task[]>(`${this.url}/${id}`, this.httpOptions)
+      .pipe(
+        retry(1),
+        catchError(this.handleError)
+      );
+  }
+
   // Manipulação de erros
   handleError(error: HttpErrorResponse) {
     let errorMessage = '';
