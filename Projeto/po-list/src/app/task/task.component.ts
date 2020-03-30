@@ -82,22 +82,29 @@ export class TaskComponent implements OnInit {
     return this.taskService.getStatusTask(tasks);
   }
 
-  // Visualizar
-  view(item) {
-    let taskstmp: Array<any> = [];
-    taskstmp = this.taskService.getSelectTask(item);
-    this.taskDetailComponent.viewItem(taskstmp);
+  // Adicionar
+  add() {
+     // let taskstmp: Task[];
+    // taskstmp = this.taskService.getSelectTask(item);
+     this.taskDetailComponent.addItem();
   }
 
-  // Visualizar
+  // Alterar
   alter(item) {
     let taskstmp: Array<any> = [];
     taskstmp = this.taskService.getSelectTask(item);
-    this.taskDetailComponent.viewItem(taskstmp);
+    this.taskDetailComponent.alterItem(taskstmp);
+  }
+
+  // Excluir
+  delete(item) {
+    let taskstmp: Array<any> = [];
+    taskstmp = this.taskService.getSelectTask(item);
+    this.taskDetailComponent.deleteItem(taskstmp);
   }
 
   // Visualizar
-  add(item) {
+  view(item) {
     let taskstmp: Array<any> = [];
     taskstmp = this.taskService.getSelectTask(item);
     this.taskDetailComponent.viewItem(taskstmp);

@@ -20,6 +20,7 @@
       p-hide-text-overflow
       p-sort="true"
       p-striped="true"
+      [p-single-select]=true
       [p-actions]="actions"
       [p-columns]="columns"
       [p-items]="tasks">
@@ -29,9 +30,10 @@
   <hr>
 
   <div>
-    <po-button class="po-md-3" p-label="Incluir" (p-click)="view(tasks)"></po-button>
-    <po-button class="po-md-3" p-label="Alterar" (p-click)="alter(tasks)"></po-button>
-    <po-button class="po-md-3" p-label="Visualizar" (p-click)="add(tasks)"></po-button>
+    <po-button class="po-md-2" p-label="Incluir" (p-click)="add()"></po-button>
+    <po-button class="po-md-2" p-label="Alterar" (p-click)="alter(tasks)"></po-button>
+    <po-button class="po-md-2" p-label="Visualizar" (p-click)="view(tasks)"></po-button>
+    <po-button class="po-md-2" p-label="Excluir" (p-click)="delete(tasks)"></po-button>
   </div>
 
 </po-container>

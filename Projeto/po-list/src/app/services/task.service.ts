@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
 
@@ -16,6 +16,11 @@ export class TaskService {
   url = 'http://localhost:3000/tasks'; // api rest fake
 
   constructor(private httpClient: HttpClient) {}
+
+  // Headers
+  httpOptions = {
+    headers: new HttpHeaders({'Content-Type': 'application/json'})
+  };
 
   getColumns(): Array<PoTableColumn> {
     return [
@@ -52,6 +57,24 @@ export class TaskService {
   // Obtem uma tarefa pelo id
   getTaskById(id: string): Observable<Task[]> {
     return this.httpClient.get<Task[]>(`${this.url}/${id}`)
+      .pipe(
+        retry(2),
+        catchError(this.handleError)
+      );
+  }
+
+  // atualiza uma tarefa
+  updateTask(task: Task): Observable<Task> {
+    return this.httpClient.put<Task>(`${this.url}/${task.id}`, JSON.stringify(task), this.httpOptions)
+      .pipe(
+        retry(1),
+        catchError(this.handleError)
+      );
+  }
+
+  // salva uma tarefa
+  saveTask(task: Task): Observable<Task> {
+    return this.httpClient.post<Task>(this.url, JSON.stringify(task), this.httpOptions)
       .pipe(
         retry(2),
         catchError(this.handleError)

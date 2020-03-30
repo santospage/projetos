@@ -1,8 +1,11 @@
-import { Component, OnInit, Injectable, Input } from '@angular/core';
+import { Component, OnInit, Injectable } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 
 import { TaskService } from 'src/app/services/task.service';
 import { Task } from './../../models/task';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { TaskDetailService } from 'src/app/services/task-detail.service';
+import { TaskComponent } from './../task.component';
 
 @Injectable({
   providedIn: 'root'
@@ -14,27 +17,47 @@ import { Task } from './../../models/task';
 })
 export class TaskDetailComponent implements OnInit {
 
+  detail: any;
+  IdTask: Task;
+  description: Task;
+  responsable: Task;
+  categorie: Task;
+  generationdate: Task;
+  deadline: Task;
+  closedate: Task;
+  textarea: Task;
+  status: Task;
+  inputDisabled: boolean;
+  formulariosForm: FormGroup;
+  tasks: any;
+
   constructor(private taskService: TaskService,
+              private taskDetailService: TaskDetailService,
               private router: Router,
-              private activateRoute: ActivatedRoute
+              private activateRoute: ActivatedRoute,
+              private taskComponent: TaskComponent,
+              private fb: FormBuilder
               ) {
+                this.createTaskForm();
   }
 
-  detail: any;
-  IdTask: string;
-  description: string;
-  responsable: string;
-  categorie: string;
-  generationdate: string;
-  deadline: string;
-  closedate: string;
-  textarea: string;
+  createTaskForm() {
+    this.values(this.activateRoute.snapshot.params['id']);
+    this.taskComponent.createTaskForm();
+  }
 
-  add(item) {
+  // Adicionar
+  addItem() {
+    this.router.navigate([`/task/Incluir`]);
+  }
+
+  // Alterar
+  alterItem(item) {
     this.detail = item;
   }
 
-  alterItem(item) {
+  // Excluir
+  deleteItem(item) {
     this.detail = item;
   }
 
@@ -47,30 +70,24 @@ export class TaskDetailComponent implements OnInit {
   }
 
   values(item) {
-    this.taskService.getTaskById(item).subscribe((tasks: Task[]) => {
+    if (item !== undefined) {
+      this.taskService.getTaskById(item).subscribe((tasks: Task[]) => {
       this.detail = tasks;
       this.IdTask = this.detail.id;
       this.description = this.detail.description;
       this.responsable = this.detail.responsable;
       this.categorie =  this.detail.category;
-      this.generationdate = `${this.taskService.AjustData(new Date(this.detail.generationdate)
-        .getDate() + 1)}-${this.taskService.AjustData(new Date(this.detail.generationdate)
-          .getMonth() + 1)}-${new Date(this.detail.generationdate)
-            .getFullYear()}`;
-      this.deadline = `${this.taskService.AjustData(new Date(this.detail.deadline)
-        .getDate() + 1)}-${this.taskService.AjustData(new Date(this.detail.deadline)
-          .getMonth() + 1)}-${new Date(this.detail.deadline)
-            .getFullYear()}`;
+      this.generationdate = this.detail.generationdate;
+      this.deadline = this.detail.deadline;
 
       if (this.detail.closedate) {
-              this.closedate =  `${this.taskService.AjustData(new Date(this.detail.closedate)
-                .getDate() + 1)}-${this.taskService.AjustData(new Date(this.detail.closedate)
-                .getMonth() + 1)}-${new Date(this.detail.closedate)
-                .getFullYear()}`;
-            }
+              this.closedate = this.detail.closedate;
+              this.inputDisabled = true;
+      }
 
       this.textarea = this.detail.detail;
-    });
+      });
+    }
   }
 
   delete(item) {
@@ -81,7 +98,18 @@ export class TaskDetailComponent implements OnInit {
     if (this.closedate) {
       this.router.navigate(['/historic']);
     } else {
-      this.router.navigate(['/task']);
+        this.taskComponent.taskForm.value.id = this.IdTask;
+        this.taskComponent.taskForm.value.description = this.description;
+        this.taskComponent.taskForm.value.generationdate = this.generationdate;
+        this.taskComponent.taskForm.value.category = this.categorie;
+        this.taskComponent.taskForm.value.responsable =  this.responsable;
+        this.taskComponent.taskForm.value.deadline = this.deadline;
+        this.taskComponent.taskForm.value.closedate = this.closedate;
+        this.taskComponent.taskForm.value.status = this.status;
+        this.taskComponent.taskForm.value.detail = this.textarea;
+
+        this.taskDetailService.saveTask(this.taskComponent.taskForm.value);
+        this.router.navigate(['/task']);
     }
   }
 
@@ -94,6 +122,5 @@ export class TaskDetailComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.values(this.activateRoute.snapshot.params['id']);
   }
 }
