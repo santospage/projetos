@@ -31,6 +31,8 @@ export class TaskDetailComponent implements OnInit {
   formulariosForm: FormGroup;
   tasks: any;
   altera = false;
+  IdTaskDisabled: boolean;
+  IdGenerationDisabled: boolean;
 
   constructor(private taskService: TaskService,
               private taskDetailService: TaskDetailService,
@@ -90,6 +92,11 @@ export class TaskDetailComponent implements OnInit {
       if (this.detail.closedate) {
               this.closedate = this.detail.closedate;
               this.inputDisabled = true;
+      }
+
+      if (this.detail.id) {
+        this.IdTaskDisabled = true;
+        this.IdGenerationDisabled = true;
       }
 
       this.textarea = this.detail.detail;

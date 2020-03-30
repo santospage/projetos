@@ -5,11 +5,11 @@
 
 <po-container>
     <div class="po-row">
-      <po-input [(ngModel)]="IdTask" class="po-md-2" p-clean p-label="Código" [p-disabled]="inputDisabled"></po-input>
+      <po-input [(ngModel)]="IdTask" class="po-md-2" p-clean p-label="Código" [p-disabled]="inputDisabled || IdTaskDisabled"></po-input>
       <po-input [(ngModel)]="description" class="po-md-4" p-clean p-label="Descrição" [p-disabled]="inputDisabled"></po-input>
       <po-input [(ngModel)]="responsable" class="po-md-4" p-clean p-label="Responsável" [p-disabled]="inputDisabled"></po-input>
       <po-input [(ngModel)]="categorie" class="po-md-4" p-clean p-label="Categoria" [p-disabled]="inputDisabled"></po-input>
-      <po-input [(ngModel)]="generationdate" class="po-md-2" p-clean p-label="Geração" [p-disabled]="inputDisabled"></po-input>
+      <po-input [(ngModel)]="generationdate" class="po-md-2" p-clean p-label="Geração" [p-disabled]="inputDisabled || IdGenerationDisabled"></po-input>
       <po-input [(ngModel)]="deadline" class="po-md-2" p-clean p-label="Prazo" [p-disabled]="inputDisabled"></po-input>
       <po-input [(ngModel)]="closedate" class="po-md-2" p-clean p-label="Encerramento" [p-disabled]="inputDisabled"></po-input>
     </div>
